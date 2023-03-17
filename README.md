@@ -17,7 +17,7 @@
 
 Note: Check the image use command ``` docker images ``` to list out all the images.
 
---Before running the container some pre-requisites are needed to run the container with hassel free
+--*Before running the container some pre-requisites are needed to run the container with hassle free*--
 
 - Create a seprate network for jenkins, by using the command: ``` docker network create jenkins ```
 
@@ -35,16 +35,31 @@ Note: execute first line ie: docker build -d --name jenkins \  then press --ente
 
 - Check if the container is running or not use command ``` docker ps -a ``` To list out all the running containers
 
+- Go to your Browser (crome/edge) type localhost:7070 to access Jenkins portal. if you are using cloud providers VM's open all required security ports and use public ip then port eg: 19.245.45.256:7070 to access the portal.
 
+3. Configuring Jenkins:
 
-4. A deployable War file would be generated in target/hello-1.0.war Directory.
-5. Build image using docker use: "docker build -t tomcat:1.0 ."
-6. Run the image using command "docker run -d -t -p 7070:8080 tomcat:1.0"
-7. By default the Webbapps folder would be de-adtivated, we need to go into the container using command: "docker exec -it <-container id-> bash
-8. By default it would load to /usr/local/tomcat directory, where we have to delete the webbapps folder & re-name webapps.dist folder as webbapps
-9. Use command mv /webapps.dist /webapps <-Check whether the hello-1.0.war file is loaded inside the webapps folder->
-10. Go to the http address ie: <ip_address>:7070/hello-1.0 eg: localhost:7070/hello-1.0
+- For password we have to log in to the container use command ``` docker ps -a ```  to know all the running containers and use command ``` docker exec -it <cintainer id> bash ``` to log into jenkins container.
 
-Done!
+- use command cat /var/jenkins_home/secrects/ and initialpasssword file to get your password, copy and paste it to gain access. 
 
-Open your browser at http://localhost:7070/hello-1.0 To open up the page. 
+- Insatll all the required pluggins and user data required for log-in.
+
+4. Jenkins Global-Tool-configuration
+
+- Go to jenkins dashbord and to manage jenkins > global-tool-configuration.
+
+- Under JDK add the following [java file directory in the container]
+
+Give a name: Java-11
+JAVA_HOME /opt/java/openjdk/bin/java
+
+- Under Maven add the local directory to maven installation file [in container]
+
+Give a name: Maven
+MAVEN_HOME /usr/share/maven
+
+- Save the settings.
+
+5. Create a Pipeline 
+
