@@ -77,7 +77,7 @@ pipeline {
     stages {
         stage('Cloning-repo') {
             steps {
-                git ''
+                git 'https://github.com/AbhiGT997/simple-war-file-Maven_build.git'
             }
         }
         stage('Building-war-file') {
@@ -93,3 +93,8 @@ pipeline {
     }
 }
 ```
+6. Save and execute the piplene the build would be completed, it could be checked in the console output.
+
+7. If we exec into the container and navigate to /var/jenkins_home/ the war file would be generated in the pipeline's folder under target directory. 
+
+---*Thus a simple War file would be genetated using docker and jenkins and maven to generate all the necessary documentations and create a war file.*---
