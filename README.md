@@ -25,11 +25,13 @@ Note: Check the image use command ``` docker images ``` to list out all the imag
 
 - Run the following Commands:
 
-``` docker build -d --name jenkins \
+``` 
+docker build -d --name jenkins \
 -p 7070:8080 \
 -v jenkins-data:/var/jenkins_home \
 --network jenkins \
-custom-jenkins:latest ```
+custom-jenkins:latest 
+```
 
 Note: execute first line ie: docker build -d --name jenkins \  then press --enter-- then execute all the commands as mentioned above.
 
@@ -61,5 +63,33 @@ MAVEN_HOME /usr/share/maven
 
 - Save the settings.
 
-5. Create a Pipeline 
+5. Create a Pipeline:
 
+- Select New item, then Pipeline select a name for the pipelile, and paste the following pipeline script:
+
+```
+pipeline {
+    agent any
+    environment {
+        PATH = "/opt/usr/share/maven/bin:$PATH"
+    }
+
+    stages {
+        stage('Cloning-repo') {
+            steps {
+                git ''
+            }
+        }
+        stage('Building-war-file') {
+            steps {
+                sh "mvn package"
+            }
+        }
+        stage('The War file created') {
+            steps {
+                echo "The file has been created"
+            }
+        }
+    }
+}
+```
