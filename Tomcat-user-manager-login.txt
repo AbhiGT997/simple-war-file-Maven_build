@@ -1,0 +1,35 @@
+Tomcat user configuration:
+
+tomcat/conf/tomcat-users.xml
+
+
+<role rolename="manager-gui"/>
+<role rolename="manager-script"/>
+<role rolename="manager-jmx"/>
+<role rolename="manager-status"/>
+<user rolename="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+
+
+---For Tomcat: Docker-image---
+
+<role rolename="manager-gui"/>
+<user username="admin" password="admin" roles="manager-gui"/>
+
+---only one is enough----
+
+<role rolename="admin-gui"/>
+<user username="admin" password="admin" roles="admin-gui"/>
+
+---Manager-context---
+
+/tomcat/webapps/manager/META-INF/context.xml
+
+comment out:
+<!--  <Valve className="org.apache.catalina.valves.RemoteAddrValve"
+         allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" /> -->
+
+Same for the host-manager:
+ 
+/opt/tomcat/webapps/host-manager/META-INF/context.xml
+
+
