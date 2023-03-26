@@ -1,20 +1,25 @@
-# Stage 1: Build the Java web application
-FROM maven:3.8.3-openjdk-11 AS build
-MAINTAINER root
-WORKDIR /usr/maven
-COPY pom.xml /usr/maven/
-COPY src /src/maven
+Stage 1: Build the Java web application
+
+FROM ubuntu:latest AS build
+USER root
+RUN apt-get update \
+  && apt-get install -y openjdk-11-jdk
+RUN apt-get install -y maven
+RUN mvn --version
+ENV DEBIAN_FRONTEND noninteractive
+ENV JAVA_HOME /usr/lib/jvm/java-11-openjdk-amd64/
+ENV MAVEN_HOME /usr/share/maven
+ENV PATH "$MAVEN_HOME/bin:$PATH"
+WORKDIR /usr/share/maven
+COPY pom.xml /usr/share/maven
+COPY src /usr/share/maven
 RUN mvn package
 
 # Stage 2: Deploy the WAR file to Tomcat
 
-FROM tomcat
-RUN apt-get update && apt-get install -y nano
-RUN apt-get install -y git && apt-get install -y tree
-RUN apt install -y openjdk-11-jre-headless
-ENV CATALINA_HOME: /usr/local/tomcat
-ENV JRE_HOME: /opt/java/openjdk/bin/java
-COPY --from=build /usr/maven/target/hello-1.0.war /usr/local/tomcat/webapps.dist
+FROM pricegt/tomcat-custom:1.0
+RUN apt-get update
+COPY --from=build /usr/share/maven/target/hello-1.0.war /usr/local/tomcat/webapps
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 
