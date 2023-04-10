@@ -15,10 +15,14 @@ pipeline {
                 sh "mvn package"
             }
         }
-        stage('The War file created') {
+        stage('SonarQube Static-Code Analysis') {
             steps {
-                echo "The file has been created"
+                withSonarQubeEnv('sonarqube') { 
+        // If you have configured more than one global server connection, you can specify its name
+//      sh "${scannerHome}/bin/sonar-scanner"
+        sh "mvn sonar:sonar"
             }
         }
     }
+  }
 }
