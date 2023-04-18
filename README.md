@@ -88,17 +88,19 @@ pipeline {
         stage('SonarQube Static-Code Analysis') {
             steps {
                 withSonarQubeEnv('sonarqube') { 
-        // If you have configured more than one global server connection, you can specify its name
-//      sh "${scannerHome}/bin/sonar-scanner"
+        // If you have configured more than one global server connection, you can specify its name //      
+        sh "${scannerHome}/bin/sonar-scanner"
         sh "mvn sonar:sonar"
             }
-        }
-    }
-  }
+         }
+      }
+   }
 }
 ```
 6. Save and execute the piplene the build would be completed, it could be checked in the console output.
 
 7. If we exec into the container and navigate to /var/jenkins_home/ the war file would be generated in the pipeline's folder under target directory. 
+
+8. For setting up SonarQube server follow the Readme file in the SonarQube-Server-Setup folder. 
 
 ---*Thus a simple War file would be genetated using docker and jenkins and maven to generate all the necessary documentations and create a war file.*---
