@@ -33,5 +33,26 @@
 7. Generating Tokens:
    Tokens can be used by jenkins to access sonar server for code quality analysis 
    My account--> Security --> Generate tokenns
-   {Give a name jenkins and generate the token and copy the secret code & add it to the credentials as **Secrect text** option such that it can be used in pipeline     jobs}
+   {Give a name sonarqube and generate the token and copy the secret code & add it to the credentials as **Secrect text** option such that it can be used in pipeline jobs}
+
+8. Configuring Jenkins global settings to add SonarQube:
+   Go to Jenkins --> Manage jenkins --> System --> SonarQube server
+   Enable Environment variables
+   Add SonarQuber serbver by providing the credentials:
+   url:  http://localhost:9000/
+   Server authentication token: sonarqube to access the server
+   
+   Finally add the following in the pipeline to use the SonarQube server:
+   
+   stage('SonarQube Static-Code Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') { 
+        // If you have configured more than one global server connection, you can specify its name //      
+        sh "${scannerHome}/bin/sonar-scanner"
+        sh "mvn sonar:sonar"
+            }
+         }
+      }
+   }
+}
    
