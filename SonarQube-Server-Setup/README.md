@@ -15,8 +15,12 @@
    use: unzip sonarqube-9.4.0.54424.zip (to unzip all the contents to the directory)
    
 4. Giving permission to sonarqube to run:
+   
+   ```
    chmod -R 755 <proper_directory_location>/sonarqube-9.4.0.54424
+   
    chown -R sonarqube:sonarqube <proper_directory_location>/sonarqube-9.4.0.54424
+   ```
    
 5. Change directory: to Start-up SonarQube server:
    cd sonarqube-9.4.0.54424/bin/linux-x86-64/
@@ -41,6 +45,14 @@
    Add SonarQuber serbver by providing the credentials:
    url:  http://localhost:9000/
    Server authentication token: sonarqube to access the server
+   
+ Note!!: If the server is restarted then we need to re-start the sonarqube server switch to sonaruser (because the file structure would be different for different users)
+ ```
+ sudo su - sonarqube
+ chmod -R 755 <file-location>
+ chown -R sonarqube:sonarqube <file-location>
+ 
+ ```
    
    Finally add the following in the pipeline to use the SonarQube server:
    
