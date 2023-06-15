@@ -55,6 +55,8 @@
  ```
    
    Finally add the following in the pipeline to use the SonarQube server:
+ 
+ ```
    
    stage('SonarQube Static-Code Analysis') {
             steps {
@@ -67,4 +69,6 @@
       }
    }
 }
+
+```
    
