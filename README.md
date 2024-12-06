@@ -26,7 +26,7 @@ Note: Check the image use command ``` docker images ``` to list out all the imag
 - Run the following Commands:
 
 ``` 
-docker build -d --name jenkins \
+docker run -d --name jenkins \
 -p 7070:8080 \
 -v jenkins-data:/var/jenkins_home \
 --network jenkins \
